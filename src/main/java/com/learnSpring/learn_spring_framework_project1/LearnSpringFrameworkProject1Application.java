@@ -10,22 +10,27 @@ public class LearnSpringFrameworkProject1Application {
 	public static void main(String[] args) {
 		// Launch a spring context
 
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(HelloWorldConfiguration.class);
+		try (AnnotationConfigApplicationContext context =
+					 new AnnotationConfigApplicationContext(HelloWorldConfiguration.class)) {
+			// try is used to close the context in new way (try with resources) else we need to close using finally
 		//2. Configure the things that we want Spring to manage @Configuration
-		// so in JVM we have created a spring bean which takes care of running spring
-		// HelloWorldConfiguration - @Configuration
-		// name - @Bean
+					// so in JVM we have created a spring bean which takes care of running spring
+					// HelloWorldConfiguration - @Configuration
+					// name - @Bean
 
-		// 3. Retrieving beans managed by spring
-		System.out.println(context.getBean("name"));
-		System.out.println(context.getBean("age"));
-		System.out.println(context.getBean("person"));
-		System.out.println(context.getBean("person2"));
-		System.out.println(context.getBean("person3"));
-		// to retrieve the custom bean where we used different name you can specify <beanName>.class eg: Address.class
-		System.out.println(context.getBean("address1"));
+			// 3. Retrieving beans managed by spring
+			System.out.println(context.getBean("name"));
+			System.out.println(context.getBean("age"));
+			System.out.println(context.getBean("person"));
+			System.out.println(context.getBean("person2"));
+			System.out.println(context.getBean("person3"));
+			// to retrieve the custom bean where we used different name you can specify <beanName>.class eg: Address.class
+			System.out.println(context.getBean("address1"));
 
-		SpringApplication.run(LearnSpringFrameworkProject1Application.class, args);
+			SpringApplication.run(LearnSpringFrameworkProject1Application.class, args);
+		}
+		;
+
 	}
 
 }
